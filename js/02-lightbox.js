@@ -12,6 +12,7 @@ const res = galleryItems.map(el =>
 </li>
   `
 )
+
 list.insertAdjacentHTML('beforeend', res.join(''))
 
 const getImg = (e) => {
