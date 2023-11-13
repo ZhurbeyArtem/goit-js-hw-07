@@ -20,31 +20,40 @@ const res = galleryItems.map(el =>
 list.insertAdjacentHTML('beforeend', res.join(''))
 
 
+const onBtn = (e) => {
+  if (e.key === 'Escape')
+    instance.close();
+}
 
-const getImg = (e) => {
-   e.preventDefault();
-  if (e.target.nodeName !== "IMG") {
-    return;
+const options = {
+  onShow: (instance) => {
+    window.addEventListener('keydown', onBtn)
+  },
+
+  onClose: (instance) => {
+    window.removeEventListener('keydown', onBtn);
   }
-  
-  const instance = basicLightbox.create(`
+}
+
+const instance = basicLightbox.create(`
     <div class="modal">
        <img 
         class="gallery__image"
-      src="${e.target.dataset.source}"
-      alt="${e.target.alt}"
       />
     </div>
-`)
+`, options)
+
+const getImg = (e) => {
+  e.preventDefault();
+  if (e.target.nodeName !== "IMG") {
+    return;
+  }
+  const img = instance.element().querySelector('.gallery__image');
+
+  img.src = `${e.target.dataset.source}`
+  img.alt = `${e.target.alt}`
+
   instance.show()
-
-  const onBtn = (e) => {
-   if (e.key === 'Escape')
-      instance.close();
-      window.removeEventListener('keydown', onBtn);
-}
-
-  window.addEventListener('keydown', onBtn)
 }
 
 list.addEventListener('click', getImg)

@@ -15,18 +15,8 @@ const res = galleryItems.map(el =>
 
 list.insertAdjacentHTML('beforeend', res.join(''))
 
-const getImg = (e) => {
-   e.preventDefault();
-  if (e.target.nodeName !== "IMG") {
-    return;
-  }
-
  new SimpleLightbox('.gallery a', { 
     caption: true,
     captionDelay: 250,
     captionsData: 'alt',
    });
-
-}
-
-list.addEventListener('click', getImg)
